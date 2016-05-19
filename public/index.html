@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+	<head>
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Presenter</title>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+			integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+		
+		<style>
+			
+			.img {
+				margin: 0 auto;
+			}
+			
+		</style>
+		
+	</head>	
+	<body>
+		<div id="presentationContainer" class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<img id="slideHolder" class="img-responsive"/>
+				</div>
+			</div>
+		</div>
+		
+		<script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+		<script src="http://code.jquery.com/jquery-1.11.1.js"></script>	
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" 
+			integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>	
+		<script type="text/javascript">
+			var socket = io();
+			$(window).on('beforeunload', function(){
+				socket.close();
+			});
+			
+			socket.on('set-slide', function(slide) {
+				console.log("next action performed");
+				$('#slideHolder').attr('src', slide);
+			});
+			
+		</script>
+		
+	</body>
+</html>
+

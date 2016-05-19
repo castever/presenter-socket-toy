@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Presenter Control</title>
+</head>
+<body>
+    <button id="start">Start</button>
+    <button id="next">Next</button>
+    <button id="prev">Previous</button>
+    <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
+    <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
+		<script type="text/javascript">
+		    var socket = io();
+            
+            $(window).on('beforeunload', function(){
+                socket.close();
+            });
+            
+            $('#start').click(function() {
+               startPresentation(); 
+            });
+            
+            $('#next').click(nextSlide);
+            
+            $('#prev').click(previousSlide);
+            
+            var currentSlide = -1;
+			
+			var slides = [
+				"slide1.png",
+                "why.png",
+				"slide2.png",
+                "websockets.png"
+			];
+            
+            function nextSlide() {
+                if(currentSlide >= slides.length - 1) return;
+                currentSlide++;
+                sendSlideUpdateMessage();
+            }
+            
+            function previousSlide() {
+                if(currentSlide <= 0) return;
+                currentSlide--;
+                sendSlideUpdateMessage();
+            }
+            
+            function sendSlideUpdateMessage() {
+                console.log(currentSlide);
+                socket.emit('set-slide', "slides/" + slides[currentSlide]);
+            }
+            
+            function startPresentation() {
+                currentSlide = 0;
+                sendSlideUpdateMessage();
+            }
+			
+		</script>
+</body>
+</html>
