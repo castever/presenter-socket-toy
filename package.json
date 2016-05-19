@@ -4,7 +4,7 @@
 	"description": "realtime presentation web application",
 	"author": "Chad Stever",
 	"scripts": {
-		"start": "node index.js"	
+		"start": "node server.js"	
 	},
 	"dependencies": {
 		"express": "^4.13.4",
