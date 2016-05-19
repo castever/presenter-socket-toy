@@ -3,7 +3,9 @@ var server = express();
 var http = require('http').Server(server);
 var io = require('socket.io')(http);
 
-server.use(express.static('public'));
+server.set('port', (process.env.PORT || 5000))
+server.use(express.static(__dirname + '/public'));
+
 
 server.get('/', function(req, res) {
 	res.sendFile(__dirname + "/public/index.html");
@@ -27,6 +29,6 @@ io.on('connection', function(socket) {
 	
 })
 
-http.listen(3000, function() {
-	console.log('listening on *:3000');
+http.listen(port, function() {
+	console.log('listening on *:', app.get('port'));
 });
